@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lead Machine — AI-Powered Client Acquisition Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;color:#1e293b;background:#fff;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+:root{--orange:#F97316;--orange-dark:#EA580C;--orange-light:#FFF7ED;--orange-100:#FFEDD5;--slate:#1E293B;--gray:#64748B;--light:#F8FAFC}
+
+/* NAV */
+nav{padding:20px 60px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid #f1f5f9}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo .dot{width:34px;height:34px;border-radius:9px;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700}
+.nav-logo h1{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--slate)}
+.nav-links{display:flex;gap:32px;font-size:14px;font-weight:500;color:var(--gray)}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{padding:10px 24px;background:var(--orange);color:#fff;border-radius:8px;font-weight:600;font-size:14px;transition:all .2s}
+.nav-cta:hover{background:var(--orange-dark);box-shadow:0 4px 14px rgba(249,115,22,.3)}
+
+/* HERO */
+.hero{padding:160px 60px 100px;text-align:center;background:linear-gradient(180deg,var(--orange-light) 0%,#fff 100%)}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;background:var(--orange-100);color:var(--orange-dark);font-size:13px;font-weight:600;margin-bottom:24px}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:56px;font-weight:800;line-height:1.1;letter-spacing:-.04em;color:var(--slate);max-width:800px;margin:0 auto 20px}
+.hero h1 span{color:var(--orange)}
+.hero p{font-size:19px;color:var(--gray);max-width:580px;margin:0 auto 40px;line-height:1.65}
+.hero-btns{display:flex;gap:14px;justify-content:center}
+.hero-btn-primary{padding:16px 40px;background:var(--orange);color:#fff;border-radius:10px;font-weight:700;font-size:16px;transition:all .2s;border:2px solid var(--orange)}
+.hero-btn-primary:hover{background:var(--orange-dark);box-shadow:0 8px 24px rgba(249,115,22,.25)}
+.hero-btn-secondary{padding:16px 40px;border:2px solid #e2e8f0;border-radius:10px;color:var(--slate);font-weight:600;font-size:16px;transition:all .2s}
+.hero-btn-secondary:hover{border-color:var(--orange);color:var(--orange)}
+.hero-stats{display:flex;justify-content:center;gap:60px;margin-top:60px}
+.hero-stat .num{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:var(--slate)}
+.hero-stat .label{font-size:14px;color:var(--gray);margin-top:4px}
+
+/* HOW IT WORKS */
+.how{padding:100px 60px;background:#fff}
+.section-tag{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--orange);text-align:center;margin-bottom:12px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;text-align:center;color:var(--slate);margin-bottom:60px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;max-width:1100px;margin:0 auto}
+.step{text-align:center;padding:0 12px}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--orange-light);border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--orange);margin:0 auto 20px}
+.step h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--slate)}
+.step p{font-size:14px;color:var(--gray);line-height:1.6}
+
+/* FEATURES */
+.features{padding:100px 60px;background:var(--light)}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.feature-card{background:#fff;padding:32px 28px;border-radius:14px;border:1px solid #f1f5f9;transition:all .2s}
+.feature-card:hover{border-color:var(--orange);box-shadow:0 8px 24px rgba(0,0,0,.04);transform:translateY(-4px)}
+.feature-icon{width:48px;height:48px;border-radius:12px;background:var(--orange-light);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+.feature-card h3{font-size:17px;font-weight:700;margin-bottom:8px;color:var(--slate)}
+.feature-card p{font-size:14px;color:var(--gray);line-height:1.6}
+
+/* PRICING */
+.pricing{padding:100px 60px;background:#fff}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto}
+.price-card{background:#fff;border:2px solid #f1f5f9;border-radius:16px;padding:36px 28px;text-align:center;transition:all .2s;position:relative}
+.price-card.popular{border-color:var(--orange);box-shadow:0 12px 40px rgba(249,115,22,.12)}
+.price-card.popular::before{content:'MOST POPULAR';position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;padding:4px 16px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em}
+.price-card .plan-name{font-size:14px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px}
+.price-card .price{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:800;color:var(--slate)}
+.price-card .price span{font-size:18px;color:var(--gray);font-weight:500}
+.price-card .period{font-size:14px;color:var(--gray);margin-bottom:24px}
+.price-card .save{display:inline-block;padding:3px 10px;border-radius:6px;background:var(--orange-light);color:var(--orange-dark);font-size:12px;font-weight:700;margin-bottom:20px}
+.price-card ul{list-style:none;text-align:left;margin-bottom:28px}
+.price-card ul li{padding:8px 0;font-size:14px;color:var(--gray);border-bottom:1px solid #f8fafc;display:flex;align-items:center;gap:8px}
+.price-card ul li::before{content:'✓';color:var(--orange);font-weight:700}
+.price-btn{display:block;padding:14px;border-radius:10px;font-weight:700;font-size:15px;transition:all .2s;text-align:center}
+.price-btn-primary{background:var(--orange);color:#fff;border:2px solid var(--orange)}
+.price-btn-primary:hover{background:var(--orange-dark);box-shadow:0 4px 14px rgba(249,115,22,.3)}
+.price-btn-outline{background:#fff;color:var(--slate);border:2px solid #e2e8f0}
+.price-btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* CTA */
+.cta{padding:100px 60px;background:var(--orange);text-align:center}
+.cta h2{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:800;color:#fff;margin-bottom:16px}
+.cta p{font-size:18px;color:rgba(255,255,255,.8);max-width:500px;margin:0 auto 36px}
+.cta-btn{display:inline-block;padding:16px 44px;background:#fff;color:var(--orange-dark);border-radius:10px;font-weight:700;font-size:16px;transition:all .2s}
+.cta-btn:hover{box-shadow:0 8px 24px rgba(0,0,0,.15);transform:translateY(-2px)}
+
+/* CONTACT */
+.contact{padding:80px 60px;background:var(--light)}
+.contact-inner{max-width:700px;margin:0 auto;text-align:center}
+.contact h2{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;margin-bottom:12px;color:var(--slate)}
+.contact p{color:var(--gray);margin-bottom:32px}
+.contact-methods{display:flex;justify-content:center;gap:40px}
+.contact-method{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:var(--slate)}
+.contact-method span{font-size:22px}
+
+/* FOOTER */
+footer{padding:40px 60px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center}
+footer .copy{font-size:13px;color:var(--gray)}
+footer .links{display:flex;gap:24px;font-size:13px;color:var(--gray)}
+footer .links a:hover{color:var(--orange)}
+
+/* Mobile */
+@media(max-width:768px){
+  nav{padding:16px 20px}.nav-links{display:none}
+  .hero{padding:120px 20px 60px}.hero h1{font-size:32px}.hero p{font-size:16px}.hero-stats{flex-direction:column;gap:20px}
+  .steps{grid-template-columns:1fr 1fr;gap:20px}.features-grid{grid-template-columns:1fr}.pricing-grid{grid-template-columns:1fr}
+  .how,.features,.pricing,.cta,.contact{padding:60px 20px}
+  footer{flex-direction:column;gap:16px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><div class="dot">⚡</div><h1>Lead Machine</h1></div>
+  <div class="nav-links"><a href="#features">Features</a><a href="#how">How It Works</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a></div>
+  <a href="/app" class="nav-cta">Get Started →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🚀 AI-Powered Lead Generation</div>
+  <h1>Find Clients. Build Demos. <span>Close Deals.</span></h1>
+  <p>The all-in-one platform that discovers local businesses, builds them a demo website, and sends personalized outreach — automatically.</p>
+  <div class="hero-btns">
+    <a href="/app" class="hero-btn-primary">Start Free Trial →</a>
+    <a href="#how" class="hero-btn-secondary">See How It Works</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">10,000+</div><div class="label">Leads Discovered</div></div>
+    <div class="hero-stat"><div class="num">2,500+</div><div class="label">Demo Sites Built</div></div>
+    <div class="hero-stat"><div class="num">89%</div><div class="label">Open Rate</div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">From Zero to Clients in 4 Steps</h2>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h3>Pick a Location</h3><p>Choose any city worldwide and a business niche. Our AI scrapes Google Maps for businesses that need your help.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>AI Qualifies Leads</h3><p>Our AI visits each website, scores it 1-10, and identifies exactly what's wrong. Only hot leads make the cut.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>Demo Site Built</h3><p>A professional demo website is generated automatically using the business's real info — name, services, reviews, location.</p></div>
+    <div class="step"><div class="step-num">4</div><h3>Outreach Sent</h3><p>A personalized email with the demo link lands in their inbox. When they reply, you close the deal.</p></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-tag">Features</div>
+  <h2 class="section-title">Everything You Need to Land Clients</h2>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">🔍</div><h3>Smart Lead Discovery</h3><p>Scrape Google Maps across 20+ niches — dentists, restaurants, IT companies, salons, and more. Or search any custom niche.</p></div>
+    <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Website Scoring</h3><p>Claude AI visits each business's website, analyzes design quality, mobile-friendliness, and SEO — then scores it 1-10.</p></div>
+    <div class="feature-card"><div class="feature-icon">🏗️</div><h3>Auto Demo Websites</h3><p>Generate professional, niche-colored demo websites with real business info, services, reviews, and contact forms.</p></div>
+    <div class="feature-card"><div class="feature-icon">📧</div><h3>AI Email Outreach</h3><p>Personalized 3-email sequences written by AI. Each email references their specific business and includes the demo link.</p></div>
+    <div class="feature-card"><div class="feature-icon">📊</div><h3>Lead Pipeline Dashboard</h3><p>Track every lead from discovery to conversion. Rich lead cards with maps, ratings, contact info, and AI scores.</p></div>
+    <div class="feature-card"><div class="feature-icon">🌍</div><h3>Global Coverage</h3><p>Works in any city, any country. Target local businesses anywhere in the world — US, UK, India, Australia, UAE, and beyond.</p></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-tag">Pricing</div>
+  <h2 class="section-title">Simple, Transparent Pricing</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">Monthly</div>
+      <div class="price">$29<span>/mo</span></div>
+      <div class="period">Billed monthly</div>
+      <ul>
+        <li>Unlimited lead scraping</li>
+        <li>AI website scoring</li>
+        <li>Demo site generation</li>
+        <li>Email outreach</li>
+        <li>Dashboard access</li>
+      </ul>
+      <a href="/app" class="price-btn price-btn-outline">Get Started</a>
+    </div>
+    <div class="price-card popular">
+      <div class="plan-name">Quarterly</div>
+      <div class="price">$60<span>/3mo</span></div>
+      <div class="period">$20/month · Billed quarterly</div>
+      <div class="save">Save 31%</div>
+      <ul>
+        <li>Everything in Monthly</li>
+        <li>Priority AI processing</li>
+        <li>Custom email templates</li>
+        <li>PDF audit reports</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="/app" class="price-btn price-btn-primary">Get Started →</a>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">Semi-Annual</div>
+      <div class="price">$120<span>/6mo</span></div>
+      <div class="period">$20/month · Billed every 6 months</div>
+      <div class="save">Save 31%</div>
+      <ul>
+        <li>Everything in Quarterly</li>
+        <li>White-label branding</li>
+        <li>API access</li>
+        <li>Team accounts (3 seats)</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a href="/app" class="price-btn price-btn-outline">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Ready to Land More Clients?</h2>
+  <p>Join hundreds of agencies using Lead Machine to find and close local business clients on autopilot.</p>
+  <a href="/app" class="cta-btn">Start Your Free Trial →</a>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <h2>Get In Touch</h2>
+    <p>Have questions? We'd love to hear from you.</p>
+    <div class="contact-methods">
+      <div class="contact-method"><span>📧</span> hello@leadmachine.ai</div>
+      <div class="contact-method"><span>💬</span> Live Chat</div>
+      <div class="contact-method"><span>📞</span> +1 (555) 123-4567</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="copy">© 2026 Lead Machine. All rights reserved.</div>
+  <div class="links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Support</a></div>
+</footer>
+
+</body>
+</html>

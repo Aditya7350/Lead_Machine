@@ -1,0 +1,29 @@
+{
+  "name": "ai-lead-machine",
+  "version": "1.0.0",
+  "description": "AI-powered lead generation, demo site builder, and outreach automation",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "db:setup": "node src/db/setup.js",
+    "scrape": "node src/modules/scraper.js",
+    "qualify": "node src/modules/qualifier.js",
+    "build-sites": "node src/modules/siteBuilder.js",
+    "outreach": "node src/modules/outreach.js",
+    "scheduler": "node src/scheduler/cron.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "axios": "^1.7.0",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "cron": "^3.1.0",
+    "dotenv": "^16.4.0",
+    "express": "^4.21.0",
+    "pg": "^8.13.0",
+    "resend": "^4.0.0",
+    "uuid": "^10.0.0"
+  }
+}

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Lead Machine — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#080C18;color:#f1f5f9;min-height:100vh;overflow:hidden}
+.split{display:flex;min-height:100vh}
+
+/* LEFT: Brand + Network Canvas */
+.brand-side{flex:0 0 55%;position:relative;display:flex;flex-direction:column;justify-content:center;padding:60px 80px;overflow:hidden}
+.brand-side canvas{position:absolute;inset:0;width:100%;height:100%}
+.brand-content{position:relative;z-index:2}
+.brand-logo{display:flex;align-items:center;gap:14px;margin-bottom:48px}
+.brand-logo .icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#3B82F6,#8B5CF6);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 32px rgba(99,102,241,.3)}
+.brand-logo h1{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.02em}
+.brand-logo span{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:#64748b;margin-top:2px}
+.brand-headline{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;line-height:1.15;letter-spacing:-.03em;margin-bottom:20px}
+.brand-headline em{font-style:normal;background:linear-gradient(135deg,#3B82F6,#8B5CF6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-sub{font-size:16px;color:#64748b;line-height:1.7;max-width:440px;margin-bottom:48px}
+.brand-stats{display:flex;gap:40px}
+.brand-stat .num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#f1f5f9}
+.brand-stat .label{font-size:12px;color:#475569;margin-top:2px}
+
+/* RIGHT: Login Form */
+.form-side{flex:0 0 45%;display:flex;align-items:center;justify-content:center;padding:60px;background:#0B0F1A;border-left:1px solid #141928}
+.form-card{width:100%;max-width:380px}
+.form-card h2{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;margin-bottom:8px}
+.form-card .subtitle{color:#64748b;font-size:14px;margin-bottom:36px}
+.field{position:relative;margin-bottom:22px}
+.field label{display:block;font-size:12px;font-weight:500;color:#94a3b8;margin-bottom:6px;letter-spacing:.02em}
+.field input{width:100%;padding:14px 16px;background:#10162A;border:1px solid #1E293B;border-radius:10px;color:#f1f5f9;font-size:14px;font-family:inherit;outline:none;transition:border .2s,box-shadow .2s}
+.field input:focus{border-color:#3B82F6;box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.field input::placeholder{color:#334155}
+.field .toggle-pw{position:absolute;right:14px;top:34px;background:none;border:none;color:#475569;cursor:pointer;font-size:13px;font-family:inherit}
+.field .toggle-pw:hover{color:#94a3b8}
+.options{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.remember{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:#94a3b8}
+.remember input{width:16px;height:16px;accent-color:#3B82F6}
+.forgot{font-size:13px;color:#3B82F6;text-decoration:none;transition:color .2s}
+.forgot:hover{color:#8B5CF6}
+.login-btn{width:100%;padding:15px;background:linear-gradient(135deg,#3B82F6,#8B5CF6);border:none;border-radius:10px;color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s;position:relative;overflow:hidden}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(99,102,241,.3)}
+.login-btn:active{transform:translateY(0)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.error-msg{background:#1a0a0a;border:1px solid #7f1d1d;color:#fca5a5;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:16px;display:none}
+.divider{text-align:center;margin:28px 0;position:relative}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:calc(50% - 20px);height:1px;background:#1E293B}
+.divider::before{left:0}.divider::after{right:0}
+.divider span{font-size:12px;color:#334155;padding:0 12px}
+.alt-action{text-align:center;font-size:13px;color:#64748b}
+.alt-action a{color:#3B82F6;text-decoration:none;font-weight:500}
+.alt-action a:hover{color:#8B5CF6}
+
+/* Mobile */
+@media(max-width:900px){
+  .split{flex-direction:column}
+  .brand-side{flex:none;padding:40px 28px 32px;min-height:auto}
+  .brand-headline{font-size:28px}
+  .brand-sub{display:none}
+  .brand-stats{gap:24px}
+  .brand-stat .num{font-size:20px}
+  .form-side{flex:1;padding:32px 28px;border-left:none;border-top:1px solid #141928}
+}
+
+@media(prefers-reduced-motion:reduce){
+  canvas{display:none}
+}
+</style>
+</head>
+<body>
+<div class="split">
+
+  <!-- LEFT: Brand + Animated Network -->
+  <div class="brand-side">
+    <canvas id="network"></canvas>
+    <div class="brand-content">
+      <div class="brand-logo">
+        <div class="icon">⚡</div>
+        <div><h1>Lead Machine</h1><span>ai-powered pipeline</span></div>
+      </div>
+      <h2 class="brand-headline">Find leads.<br>Build demos.<br><em>Close clients.</em></h2>
+      <p class="brand-sub">AI discovers local businesses, qualifies them, builds demo websites, and sends personalized outreach — all on autopilot.</p>
+      <div class="brand-stats">
+        <div class="brand-stat"><div class="num" id="stat1">0</div><div class="label">Leads found</div></div>
+        <div class="brand-stat"><div class="num" id="stat2">0</div><div class="label">Sites built</div></div>
+        <div class="brand-stat"><div class="num" id="stat3">0</div><div class="label">Emails sent</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Login Form -->
+  <div class="form-side">
+    <div class="form-card">
+      <h2>Welcome back</h2>
+      <p class="subtitle">Sign in to your Lead Machine dashboard</p>
+
+      <div class="error-msg" id="error"></div>
+
+      <div class="field">
+        <label>Email address</label>
+        <input type="email" id="email" placeholder="you@agency.com" autocomplete="email" />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" />
+        <button class="toggle-pw" onclick="togglePw()" type="button">Show</button>
+      </div>
+
+      <div class="options">
+        <label class="remember"><input type="checkbox" id="remember" checked /> Remember me</label>
+        <a href="#" class="forgot">Forgot password?</a>
+      </div>
+
+      <button class="login-btn" id="loginBtn" onclick="handleLogin()">Sign in</button>
+
+      <div class="divider"><span>or</span></div>
+      <p class="alt-action">New here? <a href="#">Create an account</a></p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// === ANIMATED NETWORK CANVAS ===
+const canvas = document.getElementById('network');
+const ctx = canvas.getContext('2d');
+let nodes = [];
+const NODE_COUNT = 18;
+const CONNECT_DIST = 150;
+let W, H;
+
+function resize() {
+  W = canvas.width = canvas.parentElement.offsetWidth;
+  H = canvas.height = canvas.parentElement.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Create nodes
+for (let i = 0; i < NODE_COUNT; i++) {
+  nodes.push({
+    x: Math.random() * 2000,
+    y: Math.random() * 1200,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 2 + 1.5,
+    pulse: 0,
+    pulseSpeed: 0,
+  });
+}
+
+// Randomly pulse nodes
+setInterval(() => {
+  const n = nodes[Math.floor(Math.random() * nodes.length)];
+  n.pulse = 1;
+  n.pulseSpeed = 0.015;
+}, 2000);
+
+function drawNetwork() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Draw connections
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < CONNECT_DIST) {
+        const alpha = (1 - dist / CONNECT_DIST) * 0.12;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = `rgba(59,130,246,${alpha})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Draw nodes
+  for (const n of nodes) {
+    // Update position
+    n.x += n.vx;
+    n.y += n.vy;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+
+    // Pulse animation
+    if (n.pulse > 0) {
+      n.pulse -= n.pulseSpeed;
+      const pr = n.r + n.pulse * 16;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, pr, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(139,92,246,${n.pulse * 0.25})`;
+      ctx.fill();
+    }
+
+    // Node dot
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = n.pulse > 0.5 ? '#8B5CF6' : '#3B82F6';
+    ctx.fill();
+  }
+
+  requestAnimationFrame(drawNetwork);
+}
+drawNetwork();
+
+// === LOGIN LOGIC ===
+const API = window.location.origin;
+
+function togglePw() {
+  const inp = document.getElementById('password');
+  const btn = document.querySelector('.toggle-pw');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
+  else { inp.type = 'password'; btn.textContent = 'Show'; }
+}
+
+async function handleLogin() {
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('password').value;
+  const err = document.getElementById('error');
+  const btn = document.getElementById('loginBtn');
+
+  if (!email || !pass) {
+    err.style.display = 'block';
+    err.textContent = 'Please enter your email and password.';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in...';
+  err.style.display = 'none';
+
+  try {
+    const res = await fetch(API + '/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass }),
+    });
+    const data = await res.json();
+
+    if (data.token) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      window.location.href = '/';
+    } else {
+      err.style.display = 'block';
+      err.textContent = data.detail || 'Invalid credentials. Please try again.';
+    }
+  } catch (e) {
+    err.style.display = 'block';
+    err.textContent = 'Cannot connect to server. Make sure it is running.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Sign in';
+}
+
+// Enter key to login
+document.getElementById('password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleLogin();
+});
+
+// Fetch live stats for the left side
+async function loadStats() {
+  try {
+    const r = await fetch(API + '/api/stats');
+    const s = await r.json();
+    animateNum('stat1', s.total_leads || 0);
+    animateNum('stat2', s.demos_built || 0);
+    animateNum('stat3', s.contacted || 0);
+  } catch {}
+}
+function animateNum(id, target) {
+  const el = document.getElementById(id);
+  let current = 0;
+  const step = Math.ceil(target / 30);
+  const timer = setInterval(() => {
+    current += step;
+    if (current >= target) { current = target; clearInterval(timer); }
+    el.textContent = current.toLocaleString();
+  }, 30);
+}
+loadStats();
+
+// Already logged in? Redirect
+if (localStorage.getItem('token')) {
+  window.location.href = '/';
+}
+</script>
+</body>
+</html>
