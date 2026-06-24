@@ -24,6 +24,7 @@ DAILY_EMAIL_LIMIT = int(os.getenv("DAILY_EMAIL_LIMIT", "30"))
 db_pool = pool.ThreadedConnectionPool(
     minconn=1,
     maxconn=10,
+    dsn=DATABASE_URL,
 )
 
 @contextmanager
