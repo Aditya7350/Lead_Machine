@@ -2,7 +2,8 @@
 AI Lead Machine — FastAPI Backend
 Run: uvicorn main:app --host 0.0.0.0 --port 3000 --reload
 """
-
+from config import init_db
+init_db()
 import json
 import threading
 from fastapi import FastAPI, BackgroundTasks, HTTPException, Request
@@ -12,7 +13,36 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
 
+print("Loading config...")
 from config import query, query_one, execute, PORT
+print("Config loaded")
+
+print("Loading scraper...")
+from modules.scraper import scrape_campaign, create_campaign, scrape_all_active
+print("Scraper loaded")
+
+print("Loading qualifier...")
+from modules.qualifier import qualify_new_leads, qualify_single
+print("Qualifier loaded")
+
+print("Loading site builder...")
+from modules.site_builder import build_demo_site, build_pending_sites
+print("Site builder loaded")
+
+print("Loading outreach...")
+from modules.outreach import init_new_sequences, process_due_emails
+print("Outreach loaded")
+
+print("Loading auth...")
+from modules.auth import (
+    get_user_by_email,
+    create_user,
+    verify_password,
+    create_token,
+    verify_token,
+    setup_default_admin,
+)
+print("Auth loaded")
 from modules.scraper import scrape_campaign, create_campaign, scrape_all_active
 from modules.qualifier import qualify_new_leads, qualify_single
 from modules.site_builder import build_demo_site, build_pending_sites
