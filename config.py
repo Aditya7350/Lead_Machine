@@ -7,7 +7,8 @@ from contextlib import contextmanager
 load_dotenv()
 
 # --- Environment ---
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/ai_lead_machine")
+# DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/ai_lead_machine")
+DATABASE_URL = os.getenv("DATABASE_URL")
 GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY", "")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
@@ -18,8 +19,12 @@ PORT = int(os.getenv("PORT", "3000"))
 DAILY_EMAIL_LIMIT = int(os.getenv("DAILY_EMAIL_LIMIT", "30"))
 
 # --- Database Pool ---
-db_pool = pool.ThreadedConnectionPool(1, 10, DATABASE_URL)
+# db_pool = pool.ThreadedConnectionPool(1, 10, DATABASE_URL)
 
+db_pool = pool.ThreadedConnectionPool(
+    minconn=1,
+    maxconn=10,
+)
 
 @contextmanager
 def get_db():
