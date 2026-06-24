@@ -21,11 +21,16 @@ DAILY_EMAIL_LIMIT = int(os.getenv("DAILY_EMAIL_LIMIT", "30"))
 # --- Database Pool ---
 # db_pool = pool.ThreadedConnectionPool(1, 10, DATABASE_URL)
 
-db_pool = pool.ThreadedConnectionPool(
-    minconn=1,
-    maxconn=10,
-    dsn=DATABASE_URL,
-)
+db_pool = None
+
+def init_db():
+    global db_pool
+    if db_pool is None:
+        db_pool = pool.ThreadedConnectionPool(
+            minconn=1,
+            maxconn=10,
+            dsn=DATABASE_URL
+        )
 
 @contextmanager
 def get_db():
